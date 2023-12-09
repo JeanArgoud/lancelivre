@@ -7,7 +7,6 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
 use app\models\conta;
 
 class SiteController extends Controller
@@ -27,8 +26,14 @@ class SiteController extends Controller
         }
 
         $conta = new conta();
-        if ($conta->load(Yii::$app->request->post()) && $conta->login()) {
-            return $this->goBack();
+        if ($conta->load(Yii::$app->request->post())) {
+            if($conta->login()){
+                Yii::$app->getSession()->setFlash('success','Credenciais corretas. Bem vindo ao Lance Livre!');
+                return $this->goBack();
+            }
+            else{
+                Yii::$app->getSession()->setFlash('error', 'Credenciais incorretas.');
+            }
         }
 
         $conta->senha = '';

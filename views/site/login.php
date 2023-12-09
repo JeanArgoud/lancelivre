@@ -22,19 +22,19 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-        <?= $form->field($loginForm, 'nome')->textInput(['autofocus' => true]) ?>
+    <?= $form->field($conta, 'nome')->textInput(['autofocus' => true]) ?>
 
-        <?= $form->field($loginForm, 'senha')->passwordInput() ?>
+    <?= $form->field($conta, 'senha')->passwordInput() ?>
 
-        <?= $form->field($loginForm, 'rememberMe')->checkbox([
-            'template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ]) ?>
+    <?= $form->field($conta, 'rememberMe')->checkbox([
+        'template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
+    ]) ?>
 
-        <div class="form-group">
-            <div class="offset-lg-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-            </div>
+    <div class="form-group">
+        <div class="offset-lg-1 col-lg-11">
+            <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
         </div>
+    </div>
 
     <?php ActiveForm::end(); ?>
 

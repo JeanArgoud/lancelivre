@@ -66,7 +66,7 @@ Then you should update the composer libs (on project directory):
 Edit the file config/db.php with real data, for example:
 	return [
     	'class' => 'yii\db\Connection',
-    	'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+    	'dsn' => 'mysql:host=localhost;dbname=lancelivre',
     	'username' => 'root',
     	'password' => '',
     	'charset' => 'utf8',
@@ -74,7 +74,10 @@ Edit the file config/db.php with real data, for example:
 
 In Postgres, create a database named "lancelivre".
 load the database dump:
-	psql -U root -W -h localhost -f dump_server.sql lancelivre
+	psql -U root -W -h localhost -f dump_db.sql lancelivre
+	
+No postgres, execute o comando SQL a seguir para poder criar a conexão com o banco:
+	ALTER USER postgres WITH PASSWORD '1234';
 
 Access website in:
 	https://localhost/lancelivre/
