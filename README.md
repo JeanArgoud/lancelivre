@@ -72,9 +72,9 @@ Edit the file config/db.php with real data, for example:
     	'charset' => 'utf8',
 	];
 
-In Postgres, create a database named "lancelivre".
-load the database dump:
-	psql -U root -W -h localhost -f dump_db.sql lancelivre
+load the database dumps:
+	psql -U root -W -h localhost -f dump_db_schema.sql
+	psql -U root -W -h localhost -f dump_db_data.sql
 	
 No postgres, execute o comando SQL a seguir para poder criar a conexão com o banco:
 	ALTER USER postgres WITH PASSWORD '1234';
