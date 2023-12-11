@@ -5,7 +5,7 @@
 -- Dumped from database version 13.10
 -- Dumped by pg_dump version 13.10
 
--- Started on 2023-12-09 16:59:27
+-- Started on 2023-12-11 11:21:46
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -29,7 +29,7 @@ COPY public.conta (id, nome, senha, tipo) FROM stdin;
 \.
 
 
--- Completed on 2023-12-09 16:59:28
+-- Completed on 2023-12-11 11:21:46
 
 --
 -- PostgreSQL database dump complete
