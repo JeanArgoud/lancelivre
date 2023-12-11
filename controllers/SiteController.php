@@ -37,9 +37,7 @@ class SiteController extends Controller
         }
 
         $conta->senha = '';
-        return $this->render('login', [
-            'conta' => $conta,
-        ]);
+        return $this->render('/site/login', ['conta' => $conta]);
     }
 
     // Faz logout com seu usuário e volta para a página inicial
@@ -50,4 +48,9 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    // Ignorar este código
+    public function actionTeste()
+    {
+        return $this->render('/site/teste');
+    }
 }
