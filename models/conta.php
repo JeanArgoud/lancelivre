@@ -75,7 +75,7 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return static::findOne($id);
     }
 
     /**
@@ -84,13 +84,7 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return static::findOne(['accessToken' => $token]);
     }
 
       /**
@@ -111,5 +105,34 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
         return $this->authKey === $authKey;
     }
 
+    // Código executado antes da validação das propriedades da model
+    public function beforeValidate()
+    {
+        if (!($this->tipo == USUARIO || $this->tipo == COLABORADOR)) {
+            $this->addError('tipo', 'É obrigatório escolher o tipo de conta.');
+        }
 
+        return parent::beforeValidate();
+    }
+
+    // Código exercutado antes de salvar um dado no banco
+    public function beforeSave($insert)
+    {
+        $this->id = $this->autoincrementarId();
+        if ($insert) {
+            $this->authKey = Yii::$app->security->generateRandomString();
+        }
+        return parent::beforeSave($insert);
+    }
+
+    // Retorna um id 1 mais alto que o maior id que tem na tabela
+    public function autoincrementarId()
+    {
+        $contaMaiorId = conta::find()->orderBy(['id' => SORT_DESC])->one();
+        if(!isset($contaMaiorId)){
+            return 1;
+        }
+        $novoId = $contaMaiorId->id + 1;
+        return $novoId;
+    }
 }

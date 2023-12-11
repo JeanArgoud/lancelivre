@@ -49,6 +49,9 @@ $config = [
             'rules' => [
             ],
         ],
+        'session' => [
+            'class' => 'yii\web\Session',            
+        ],
     ],
     'params' => $params,
 ];

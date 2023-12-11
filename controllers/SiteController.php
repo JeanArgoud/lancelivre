@@ -48,9 +48,23 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    // Ignorar este código
-    public function actionTeste()
+    // Criar uma nova conta de usuário ou colaborador
+    public function actionCriarConta()
     {
-        return $this->render('/site/teste');
+        $novaConta = new conta;
+
+        if ($novaConta->load(Yii::$app->request->post())) {
+            $post = Yii::$app->request->post('conta');   
+            $novaConta->setAttributes($post, false);
+            if($novaConta->validate()){
+                if($novaConta->save()){
+                    Yii::$app->getSession()->setFlash('success','Usuário criado com sucesso!');
+                    return $this->goBack();
+                }
+            }
+        }
+
+        return $this->render('/site/criarConta',['novaConta'=>$novaConta]);
     }
+
 }
