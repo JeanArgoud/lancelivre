@@ -134,4 +134,15 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
         $novoId = $contaMaiorId->id + 1;
         return $novoId;
     }
+
+    // Procura se este email é único ou existe já outra conta com este email 
+    public function emailUnico()
+    {
+        if($conta = $this->getConta(null, $this->email)){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 }

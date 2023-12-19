@@ -55,11 +55,16 @@ class SiteController extends Controller
 
         if ($novaConta->load(Yii::$app->request->post())) {
             $post = Yii::$app->request->post('conta');   
-            $novaConta->setAttributes($post, false);
+            $novaConta->setAttributes($post, false);            
             if($novaConta->validate()){
-                if($novaConta->save()){
-                    Yii::$app->getSession()->setFlash('success','Usuário criado com sucesso!');
-                    return $this->goBack();
+                if($novaConta->emailUnico()){
+                    if($novaConta->save()){
+                        Yii::$app->getSession()->setFlash('success','Usuário criado com sucesso!');
+                        return $this->goBack();
+                    }
+                }
+                else{
+                    Yii::$app->getSession()->setFlash('error','Já existe um usuário com este email.');
                 }
             }
         }
