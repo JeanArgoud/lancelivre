@@ -108,6 +108,7 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
     // Código executado antes da validação das propriedades da model
     public function beforeValidate()
     {
+        $this->tipo = USUARIO;
         if (!($this->tipo == USUARIO || $this->tipo == COLABORADOR)) {
             $this->addError('tipo', 'É obrigatório escolher o tipo de conta.');
         }
