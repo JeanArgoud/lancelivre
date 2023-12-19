@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <?= $form->field($conta, 'nome')->textInput(['autofocus' => true]) ?>
+    <?= $form->field($conta, 'email')->textInput(['autofocus' => true]) ?>
 
     <?= $form->field($conta, 'senha')->passwordInput() ?>
 

@@ -22,7 +22,7 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             // username and password are both required
-            [['nome', 'senha'], 'required'],
+            [['nome', 'senha', 'email'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
         ];
@@ -39,26 +39,24 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
      * @return bool whether the user is logged in successfully
      */
     public function login()
-    {
-        if ($this->validate()) {            
-            if($conta = $this->getConta(null, $this->nome)){
-                if($conta->validaSenha($conta, $this->senha)){
-                    return Yii::$app->user->login($conta, $this->rememberMe ? 3600*24*30 : 0);
-                }
+    {                   
+        if($conta = $this->getConta(null, $this->email)){
+            if($conta->validaSenha($conta, $this->senha)){
+                return Yii::$app->user->login($conta, $this->rememberMe ? 3600*24*30 : 0);
             }
-        }
+        }        
         return false;
     }
 
     // Retorna um usuário de acordo com seu nome ou id
-    public function getConta($id=null,$nome=null)
+    public function getConta($id=null,$email=null)
     {
         $query = conta::find();
         if($id != null){
             $query->where(['id'=>$id]);
         }
-        else if($nome != null){
-            $query->where(['nome'=>$nome]);
+        else if($email != null){
+            $query->where(['email'=>$email]);
         }
         return $query->one();             
     }

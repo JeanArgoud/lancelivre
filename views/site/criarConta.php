@@ -7,7 +7,7 @@ use yii\helpers\Html;
     <?php
         $form = ActiveForm::begin(['method' => 'post']);
 
-        echo $form->field($novaConta, 'nome')->textInput()->label('Nome de Usuário'); 
+        echo $form->field($novaConta, 'nome')->textInput(['autofocus' => true])->label('Nome de Usuário'); 
         echo $form->field($novaConta, 'senha')->passwordInput()->label('Senha'); 
         echo $form->field($novaConta, 'email')->textInput()->label('Email');
         
