@@ -55,6 +55,7 @@ CREATE TABLE public.conta (
     id integer NOT NULL,
     nome character varying(20) NOT NULL,
     senha character varying(100) NOT NULL,
+	email character varying(30) NOT NULL,
     tipo integer NOT NULL
 );
 
