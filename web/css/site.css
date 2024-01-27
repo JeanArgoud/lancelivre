@@ -82,3 +82,10 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.card {
+    width: 300px;
+    margin: 10px;
+    float: left;
+}
+

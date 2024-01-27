@@ -22,7 +22,7 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect(['//site/index']);
         }
 
         $conta = new conta();
@@ -72,4 +72,19 @@ class SiteController extends Controller
         return $this->render('/site/criarConta',['novaConta'=>$novaConta]);
     }
 
+    public function actionSolicitarColaborador()
+    {
+        $user = Yii::$app->user->identity;
+
+        $user->tipo = 3;
+
+        if ($user->save())
+        {
+            Yii::$app->session->setFlash('success', 'Solicitação enviada com sucesso. Aguarde a aprovação.');            
+        } else {
+            Yii::$app->session->setFlash('error', 'Erro ao processar a solicitação.');
+        }
+
+        return $this->redirect(['site/index']); // Redireciona para a página inicial ou outra página apropriada
+    }
 }

@@ -14,7 +14,6 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
 {
     public $rememberMe = true;
     public $authKey;
-
     /**
      * @return array the validation rules.
      */
@@ -22,7 +21,7 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             // username and password are both required
-            [['nome', 'senha', 'email'], 'required'],
+            [['nome', 'senha', 'email','tipo'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
         ];
@@ -49,7 +48,7 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
     }
 
     // Retorna um usuário de acordo com seu nome ou id
-    public function getConta($id=null,$email=null)
+    public static function getConta($id=null,$email=null)
     {
         $query = conta::find();
         if($id != null){

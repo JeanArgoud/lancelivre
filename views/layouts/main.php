@@ -48,7 +48,9 @@ AppAsset::register($this);
                     )
                     . Html::endForm()
                     . '</li>'
-                )
+                    ),
+            ['label' => 'Serviços', 'url' => ['servico/index']],
+            ['label' => 'Conta', 'url' => ['conta/index']]
         ],
     ]);
     NavBar::end();

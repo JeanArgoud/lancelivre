@@ -50,7 +50,7 @@ Install pgadmin4 (optional):
 	https://www.postgresql.org/ftp/pgadmin/pgadmin4/v6.17/windows/
 
 Create a symbolic link for the project (it need to point to /web/ folder):
-	mklink /D "C:/Apache24/htdocs/lancelivre" "F:/lancelivre/web"
+	mklink /D "C:/Apache/Apache24/htdocs/lancelivre" "C:/Projects/lancelivre/web/index"
 
 In case the website throws an error about pdo_pgsql dll, download it and replace the one in the php root folder:
 	https://www.dll-files.com/php_pdo_pgsql.dll.html
