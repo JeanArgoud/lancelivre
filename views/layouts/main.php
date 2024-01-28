@@ -38,13 +38,13 @@ AppAsset::register($this);
     
     $items = [];
     if (Yii::$app->user->isGuest) {            
-        array_push($items, ['label' => 'Login', 'url' => ['/site/login']]);
-        array_push($items, ['label' => 'Criar Conta', 'url' => ['/site/criar-conta']]);
+        array_push($items, ['label' => 'Login', 'url' => ['conta/login']]);
+        array_push($items, ['label' => 'Criar Conta', 'url' => ['conta/criar-conta']]);
     }
     else{
         // Dados da conta só é acessável por usuário logado
         $botaoLogout = '<li>'
-        . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+        . Html::beginForm(['conta/logout'], 'post', ['class' => 'form-inline'])
         . Html::submitButton(
             'Logout (' . Yii::$app->user->identity->nome . ')',
             ['class' => 'btn btn-link logout']

@@ -56,7 +56,7 @@ class ServicoController extends Controller
         // Verifique se o usuário está autenticado
         if (Yii::$app->user->isGuest) {
             // Redirecione para a página de login se o usuário não estiver autenticado
-            return $this->redirect(['site/login']);
+            return $this->redirect(['conta/login']);
         }
         // Obtenha o serviço
         $servico = $this->findModel($id);
@@ -109,7 +109,7 @@ class ServicoController extends Controller
         // Verifique se o usuário está autenticado
         if (Yii::$app->user->isGuest) {
             // Redirecione para a página de login se o usuário não estiver autenticado
-            return $this->redirect(['site/login']);
+            return $this->redirect(['conta/login']);
         }
     
         $servico = $this->findModel($id);

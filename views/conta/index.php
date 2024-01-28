@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'items' => [
                     ['label' => 'Informações da conta', 'url' => ['/conta/info']],
                     ['label' => 'Meus Serviços', 'url' => ['/conta/meus-servicos']],
-                    ['label' => 'Sair', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
+                    ['label' => 'Sair', 'url' => ['conta/logout'], 'linkOptions' => ['data-method' => 'post']],
                 ],
             ]);
 
