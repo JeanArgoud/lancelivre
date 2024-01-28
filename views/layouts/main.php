@@ -34,24 +34,31 @@ AppAsset::register($this);
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
         ],
     ]);
+
+    
+    $items = [];
+    if (Yii::$app->user->isGuest) {            
+        array_push($items, ['label' => 'Login', 'url' => ['/site/login']]);
+        array_push($items, ['label' => 'Criar Conta', 'url' => ['/site/criar-conta']]);
+    }
+    else{
+        // Dados da conta só é acessável por usuário logado
+        $botaoLogout = '<li>'
+        . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+        . Html::submitButton(
+            'Logout (' . Yii::$app->user->identity->nome . ')',
+            ['class' => 'btn btn-link logout']
+            )
+            . Html::endForm()
+            . '</li>';
+     
+        array_push($items, ['label' => 'Conta', 'url' => ['conta/index']]);
+        array_push($items, $botaoLogout);
+    }
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
-        'items' => [            
-            ['label' => 'Criar Conta', 'url' => ['/site/criar-conta']],
-            Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) :
-                (
-                    '<li>'
-                    . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->nome . ')',
-                        ['class' => 'btn btn-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>'
-                    ),
-            ['label' => 'Serviços', 'url' => ['servico/index']],
-            ['label' => 'Conta', 'url' => ['conta/index']]
-        ],
+        'items' => $items,
     ]);
     NavBar::end();
     ?>
