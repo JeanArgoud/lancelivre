@@ -22,6 +22,11 @@ ALTER TABLE IF EXISTS public.avaliacao
 
 -- DROP TABLE IF EXISTS public.canal;
 
+
+
+
+
+
 CREATE TABLE IF NOT EXISTS public.canal
 (
     id_colaborador bigint NOT NULL,
@@ -38,22 +43,13 @@ ALTER TABLE IF EXISTS public.canal
 
 -- DROP TABLE IF EXISTS public.colaborador;
 
-CREATE TABLE IF NOT EXISTS public.colaborador
-(
-    id integer NOT NULL DEFAULT nextval('colaborador_id_seq'::regclass),
-    nome character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    email character varying(100) COLLATE pg_catalog."default" NOT NULL,
-    data_cad date NOT NULL,
-    CONSTRAINT colaborador_pkey PRIMARY KEY (id)
-)
 
-TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.colaborador
-    OWNER to postgres;
--- Table: public.conta
 
--- DROP TABLE IF EXISTS public.conta;
+
+
+
+
 
 CREATE TABLE IF NOT EXISTS public.conta
 (
@@ -73,6 +69,13 @@ ALTER TABLE IF EXISTS public.conta
 
 -- DROP TABLE IF EXISTS public.mensagem;
 
+
+
+
+
+
+
+
 CREATE TABLE IF NOT EXISTS public.mensagem
 (
     id_canal smallint NOT NULL,
@@ -91,6 +94,38 @@ ALTER TABLE IF EXISTS public.mensagem
 -- Table: public.pergunta
 
 -- DROP TABLE IF EXISTS public.pergunta;
+
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS public.servico
+(
+    nome character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    preco money NOT NULL,
+    colaborador_id smallint,
+    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    avaliacao smallint NOT NULL DEFAULT 0,
+    categoria character varying(255) COLLATE pg_catalog."default" NOT NULL DEFAULT 0,
+    descricao character varying(3000) COLLATE pg_catalog."default" NOT NULL DEFAULT 'descricao'::character varying,
+    CONSTRAINT servico_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.servico
+    OWNER to postgres;
+
+
+-- Table: public.servico
+
+-- DROP TABLE IF EXISTS public.servico;
+
+
+
+
 
 CREATE TABLE IF NOT EXISTS public.pergunta
 (
@@ -119,24 +154,8 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.pergunta
     OWNER to postgres;
 
--- Table: public.servico
 
--- DROP TABLE IF EXISTS public.servico;
 
-CREATE TABLE IF NOT EXISTS public.servico
-(
-    nome character varying(30) COLLATE pg_catalog."default" NOT NULL,
-    preco money NOT NULL,
-    colaborador_id smallint,
-    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
-    avaliacao smallint NOT NULL DEFAULT 0,
-    categoria character varying(255) COLLATE pg_catalog."default" NOT NULL DEFAULT 0,
-    descricao character varying(3000) COLLATE pg_catalog."default" NOT NULL DEFAULT 'descricao'::character varying,
-    CONSTRAINT servico_pkey PRIMARY KEY (id)
-)
 
-TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.servico
-    OWNER to postgres;
 
