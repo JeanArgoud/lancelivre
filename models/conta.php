@@ -116,8 +116,8 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
     // Código exercutado antes de salvar um dado no banco
     public function beforeSave($insert)
     {
-        $this->id = $this->autoincrementarId();
         if ($insert) {
+            $this->id = $this->autoincrementarId();
             $this->authKey = Yii::$app->security->generateRandomString();
         }
         return parent::beforeSave($insert);

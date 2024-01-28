@@ -6,7 +6,7 @@ use Yii;
 use yii\web\Controller;
 use app\models\Conta;
 use app\models\Servico;
-use app\models\Colaborador;
+use app\models\RequisicaoColaborador;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -92,22 +92,33 @@ class ContaController extends Controller
     }
 
     public function actionSolicitarColaborador()
-    {
-        $user = Yii::$app->user->identity;
+    {        
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+        $conta = conta::find()->where(['id'=>Yii::$app->user->identity->id])->one();    
 
-        $user->tipo = 3;
-
-        if ($user->save())
-        {
-            Yii::$app->session->setFlash('success', 'Solicitação enviada com sucesso. Aguarde a aprovação.');            
-        } else {
-            Yii::$app->session->setFlash('error', 'Erro ao processar a solicitação.');
+        if ($conta->load(Yii::$app->request->post())) {
+            $post = Yii::$app->request->post('conta');   
+            $conta->setAttributes($post, false); 
+            if($conta->validate()){                
+                if($conta->save()){
+                    $requisicao = new requisicaoColaborador;
+                    if($requisicao->save()){
+                        Yii::$app->getSession()->setFlash('success','A requisição para você se tornar um colaborador foi enviada com sucesso!');
+                    }
+                    else{
+                        Yii::$app->getSession()->setFlash('error','Ocorreu um erro ao tentar enviar sua requisição para se tornar um colaborador.');
+                    }
+                    return $this->goBack();
+                }                                
+            }
         }
 
-        return $this->goHome(); // Redireciona para a página inicial ou outra página apropriada
+        return $this->render('solicitarColaborador',['conta'=>$conta]);
     }
 
-
+    
 
     // para virar colaborador: Yii::$app->urlManager->createUrl(['conta/solicitar-colaborador'])
 }
