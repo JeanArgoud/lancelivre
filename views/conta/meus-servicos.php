@@ -5,13 +5,14 @@ use yii\helpers\Url;
 
 $this->title = 'Meus Serviços';
 $this->params['breadcrumbs'][] = $this->title;
-?>
 
-<h1><?= Html::encode($this->title) ?></h1>
+?> <h1><?= Html::encode($this->title) ?></h1> <?php
 
-<?= Html::a('Criar Serviço', ['servico/create'], ['class' => 'btn btn-primary']) ?>
+if(Yii::$app->user->identity->tipo == COLABORADOR){
+    echo Html::a('Criar Serviço', ['servico/create'], ['class' => 'btn btn-primary']);
+}
 
-<?= GridView::widget([
+echo GridView::widget([
     'dataProvider' => new \yii\data\ArrayDataProvider([
         'allModels' => $servicos,
     ]),
@@ -42,4 +43,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ],
-]) ?>
+]);

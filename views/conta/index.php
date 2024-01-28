@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'options' => ['class' => 'navbar-nav flex-column'],
                 'items' => [
                     ['label' => 'Informações da conta', 'url' => ['/conta/info']],
-                    ['label' => 'Meus Serviços', 'url' => ['/conta/my-services']],
+                    ['label' => 'Meus Serviços', 'url' => ['/conta/meus-servicos']],
                     ['label' => 'Sair', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
                 ],
             ]);

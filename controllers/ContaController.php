@@ -34,26 +34,19 @@ class ContaController extends Controller
         return $this->render('index');
     }
 
-    public function actionMyServices()
+    // Busca todos os serviços associados ao ID do usuário
+    public function actionMeusServicos()
     {
         /*if (Yii::$app->user->isGuest)
         {
             return $this->redirect(['site/login']);
         }*/
-
-        $colaboradorId = Yii::$app->user->identity->id;
         
-        if (Yii::$app->user->identity->tipo == 3) {
-            // Busca todos os serviços associados ao ID do colaborador
-            $servicos = Servico::find()
-                ->where(['colaborador_id' => $colaboradorId])
-                ->all();
-
-            return $this->render('my-services', [
-                'servicos' => $servicos,
-            ]);
-        } else {
-            return $this->render('not-colab');
-        }
+        $servicos = conta::getTodosServicos(Yii::$app->user->identity->id);
+        return $this->render('meus-servicos', [
+            'servicos' => $servicos,
+        ]);
     }
+
+    // para virar colaborador: Yii::$app->urlManager->createUrl(['site/solicitar-colaborador'])
 }

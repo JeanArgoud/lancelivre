@@ -144,4 +144,11 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
             return true;
         }
     }
+
+    public function getTodosServicos($colaboradorId)
+    {
+        return Servico::find()
+            ->where(['colaborador_id' => $colaboradorId])
+            ->all();
+    }
 }
