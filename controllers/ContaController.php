@@ -12,24 +12,20 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 class ContaController extends Controller
-{
-    // public function behaviors()
-    // {
-    //     return [
-    //         'access' => [
-    //             'class' => AccessControl::class,
-    //             'rules' => [
-    //                 [
-    //                     'allow' => true,
-    //                     'roles' => ['@'], // Apenas usuários autenticados
-    //                 ],
-    //             ],
-    //         ],
-    //     ];
-    // }
+{    
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionErro()
+    {
+        $mensagem = 'Um erro inesperado aconteceu.';
+        $exception = Yii::$app->errorHandler->exception;
+        if ($exception !== null) {
+            $mensagem = $exception->getMessage();
+        }
+        return $this->render('erro',['mensagem'=>$mensagem]);
     }
 
     // Busca todos os serviços associados ao ID do usuário

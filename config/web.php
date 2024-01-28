@@ -26,7 +26,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'conta/error',
+            'errorAction' => 'conta/erro',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -49,6 +49,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '' => 'servico/index',
             ],
         ],
         'session' => [
