@@ -6,9 +6,8 @@ use Yii;
 use yii\base\Model;
 
 define("ADMIN", 1);  // Apenas 1, super usuário do sistema
-define("GERENTE", 2);  // Pode realizar algumas operações administrativas do sistema
-define("COLABORADOR", 3);   // Conta de uma empresa oferecendo um serviço
-define("USUARIO", 4);     // Conta de um trabalhador procurando um serviço
+define("COLABORADOR", 2);   // Conta de uma empresa oferecendo um serviço
+define("USUARIO", 2);     // Conta de um trabalhador procurando um serviço
 
 class conta extends ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -102,17 +101,6 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
         return $this->authKey === $authKey;
     }
 
-    // Código executado antes da validação das propriedades da model
-    public function beforeValidate()
-    {
-        $this->tipo = USUARIO;
-        if (!($this->tipo == USUARIO || $this->tipo == COLABORADOR)) {
-            $this->addError('tipo', 'É obrigatório escolher o tipo de conta.');
-        }
-
-        return parent::beforeValidate();
-    }
-
     // Código exercutado antes de salvar um dado no banco
     public function beforeSave($insert)
     {
@@ -145,10 +133,23 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
         }
     }
 
+     // Retorna todos os serviços de um colaborador
     public function getTodosServicos($colaboradorId)
     {
         return Servico::find()
             ->where(['colaborador_id' => $colaboradorId])
             ->all();
+    }
+
+    // Define se a nova conta é de administrador ou usuário
+    public function defineTipo($contaAdmin, $token)
+    {
+        if($contaAdmin){
+            $this->tipo = ADMIN;
+            AdminToken::gastaToken($token);
+        }
+        else{
+            $this->tipo = USUARIO;
+        }
     }
 }

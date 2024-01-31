@@ -5,6 +5,10 @@ use yii\helpers\Html;
 
 <div>
     <?php
+        if($contaAdmin){
+            echo "<div><b>Você está criando uma conta de administrador!</b></div>";
+        }
+
         $form = ActiveForm::begin(['method' => 'post']);
 
         echo $form->field($novaConta, 'nome')->textInput(['autofocus' => true])->label('Nome de Usuário'); 

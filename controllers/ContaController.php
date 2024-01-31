@@ -7,6 +7,7 @@ use yii\web\Controller;
 use app\models\Conta;
 use app\models\Servico;
 use app\models\RequisicaoColaborador;
+use app\models\AdminToken;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -68,14 +69,22 @@ class ContaController extends Controller
     }
 
     // Criar uma nova conta de usuário ou colaborador
-    public function actionCriarConta()
+    public function actionCriarConta($token=null)
     {
+        $contaAdmin = false;
+        if($token){
+            if(AdminToken::validaToken($token)){
+                $contaAdmin = true;
+            }
+        }        
+
         $novaConta = new conta;
 
         if ($novaConta->load(Yii::$app->request->post())) {
             $post = Yii::$app->request->post('conta');   
             $novaConta->setAttributes($post, false);            
-            if($novaConta->validate()){
+            $novaConta->defineTipo($contaAdmin,$token);
+            if($novaConta->validate()){                
                 if($novaConta->emailUnico()){
                     if($novaConta->save()){
                         Yii::$app->getSession()->setFlash('success','Usuário criado com sucesso!');
@@ -86,9 +95,12 @@ class ContaController extends Controller
                     Yii::$app->getSession()->setFlash('error','Já existe um usuário com este email.');
                 }
             }
+            else{
+                Yii::$app->getSession()->setFlash('error','Um erro inesperado aconteceu.');                  
+            }
         }
 
-        return $this->render('criarConta',['novaConta'=>$novaConta]);
+        return $this->render('criarConta',['novaConta'=>$novaConta,'contaAdmin'=>$contaAdmin]);
     }
 
     public function actionSolicitarColaborador()
@@ -103,7 +115,7 @@ class ContaController extends Controller
             $conta->setAttributes($post, false); 
             if($conta->validate()){                
                 if($conta->save()){
-                    $requisicao = new requisicaoColaborador;
+                    $requisicao = new RequisicaoColaborador;
                     if($requisicao->save()){
                         Yii::$app->getSession()->setFlash('success','A requisição para você se tornar um colaborador foi enviada com sucesso!');
                     }

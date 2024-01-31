@@ -5,7 +5,7 @@ use yii\db\ActiveRecord;
 use Yii;
 use yii\base\Model;
 
-class requisicaoColaborador extends ActiveRecord
+class RequisicaoColaborador extends ActiveRecord
 {
     /**
      * @return array the validation rules.
@@ -31,7 +31,7 @@ class requisicaoColaborador extends ActiveRecord
     // Retorna um id 1 mais alto que o maior id que tem na tabela
     public function autoincrementarId()
     {
-        $maiorId = requisicaoColaborador::find()->orderBy(['id' => SORT_DESC])->one();
+        $maiorId = RequisicaoColaborador::find()->orderBy(['id' => SORT_DESC])->one();
         if(!isset($maiorId)){
             return 1;
         }
