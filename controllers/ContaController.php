@@ -14,11 +14,13 @@ use yii\filters\VerbFilter;
 use yii\web\Response;
 class ContaController extends Controller
 {    
+    // Página inicial do perfil de conta do usuário
     public function actionIndex()
     {
         return $this->render('index');
     }
 
+    // Página de erros para onde o usuário é redirecionado caso algum bug aconteça
     public function actionErro()
     {
         $mensagem = 'Um erro inesperado aconteceu.';

@@ -36,10 +36,10 @@ AppAsset::register($this);
     ]);
 
     
-    $items = [];
+    $abas = [];
     if (Yii::$app->user->isGuest) {            
-        array_push($items, ['label' => 'Login', 'url' => ['conta/login']]);
-        array_push($items, ['label' => 'Criar Conta', 'url' => ['conta/criar-conta']]);
+        array_push($abas, ['label' => 'Login', 'url' => ['conta/login']]);
+        array_push($abas, ['label' => 'Criar Conta', 'url' => ['conta/criar-conta']]);
     }
     else{
         // Dados da conta só é acessável por usuário logado
@@ -52,13 +52,16 @@ AppAsset::register($this);
             . Html::endForm()
             . '</li>';
      
-        array_push($items, ['label' => 'Conta', 'url' => ['conta/index']]);
-        array_push($items, $botaoLogout);
+        array_push($abas, ['label' => 'Conta', 'url' => ['conta/index']]);
+        array_push($abas, $botaoLogout);
+        if(Yii::$app->user->identity->contaDeAdmin()){
+            array_push($abas, ['label' => 'Área Admin', 'url' => ['admin/index']]);
+        }
     }
 
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
-        'items' => $items,
+        'items' => $abas,
     ]);
     NavBar::end();
     ?>

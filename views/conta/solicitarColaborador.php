@@ -5,14 +5,24 @@ use yii\helpers\Html;
 
 <div>
     <?php
-        $form = ActiveForm::begin(['method' => 'post']);
+    $resposta = $conta->respostaRequisicao();
+    if($resposta === null || is_string($resposta)){
+        if(is_string($resposta)){
+            echo "<div>Resposta recebida: ".$resposta."</div>";
+        }
 
+        $form = ActiveForm::begin(['method' => 'post']);
+    
         echo $form->field($conta, 'endereco')->textInput(['autofocus' => true])->label('Endereço'); 
         echo $form->field($conta, 'escolaridade')->textInput()->label('Escolaridade'); 
         echo $form->field($conta, 'profissao')->textInput()->label('Profissão');
         
         echo Html::submitButton('Enviar'); 
-
+    
         ActiveForm::end();
+    }
+    else if($resposta == false){
+        echo "<div>A sua requisição ainda não foi respondida.</div>";
+    }        
     ?>
 </div>

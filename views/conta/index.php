@@ -10,20 +10,34 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
     <div class="col-md-3">
         <?php
+            if($mensagem = Yii::$app->user->identity->possuiMensagemAprovacaoColaborador()){
+                if($mensagem != ''){
+                    $mensagem = 'Mensagem da gestão: "'.$mensagem.'"';
+                }
+                echo '<div>Você foi aprovado como colaborador! '.$mensagem.'</div>';
+            }
+
             NavBar::begin([
                 'options' => [
                     'class' => 'navbar-expand-md navbar-light bg-light',
                 ],
             ]);
 
+            $abas = [
+                ['label' => 'Informações da conta', 'url' => ['/conta/info']],
+                ['label' => 'Meus Serviços', 'url' => ['/conta/meus-servicos']],                
+                ['label' => 'Sair', 'url' => ['conta/logout'], 'linkOptions' => ['data-method' => 'post']]
+            ];
+            if(Yii::$app->user->identity->requisicaoColaboradorAprovada()){
+                array_push($abas, ['label' => 'Interface Colaborador', 'url' => ['/colaborador/index']] );
+            }
+            else{
+                array_push($abas, ['label' => 'Tornar-se Colaborador', 'url' => ['/conta/solicitar-colaborador']] );
+            } 
+
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav flex-column'],
-                'items' => [
-                    ['label' => 'Informações da conta', 'url' => ['/conta/info']],
-                    ['label' => 'Meus Serviços', 'url' => ['/conta/meus-servicos']],
-                    ['label' => 'Tornar-se um Colaborador', 'url' => ['/conta/solicitar-colaborador']],
-                    ['label' => 'Sair', 'url' => ['conta/logout'], 'linkOptions' => ['data-method' => 'post']],
-                ],
+                'items' => $abas
             ]);
 
             NavBar::end();

@@ -152,4 +152,60 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
             $this->tipo = USUARIO;
         }
     }
+
+    // checa se o usuário é administrador
+    public function contaDeAdmin()
+    {
+        if($this->tipo == ADMIN){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    // Checa se o usuário já foi aprovado como colaborador
+    public function requisicaoColaboradorAprovada()
+    {
+        $existe_aprovacao = RequisicaoColaborador::find()->where(['conta_id'=>$this->id])->andWhere(['aprovado'=>true])->one();
+        if($existe_aprovacao){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    // Checa se a requisição do usuário foi respondida ou não
+    // Se tiver sido respondida, retorna a 'string' da resposta
+    // Se não tiver sido respondida, retorna 'false'
+    // Se Não existir requisição nenhuma sendo aguardada, retorna 'null'
+    public function respostaRequisicao()
+    {
+        $requisicao = RequisicaoColaborador::find()->where(['conta_id'=>$this->id])->andWhere(['or','aprovado=false','aprovado=null'])->one();
+        if(!$requisicao){
+            return null;
+        }
+        else if($requisicao->aprovado === null){
+            return false;
+        }
+        else{
+            return $requisicao->mensagem;
+        }
+    }
+
+    // Caso o usuário tenha sido aprovado como um colaborador, retorna a mensagem de leitura única que o admin enviou
+    public function possuiMensagemAprovacaoColaborador()
+    {
+        $requisicao_aprovada = RequisicaoColaborador::find()->where(['conta_id'=>$this->id])->andWhere(['aprovado'=>true])->one();
+        if($requisicao_aprovada){
+            if($requisicao_aprovada->mensagem_aprovacao_lida == false){
+                $requisicao_aprovada->mensagem_aprovacao_lida = true;
+                $requisicao_aprovada->save();
+                return $requisicao_aprovada->mensagem;
+            }
+        }else{
+            return false;
+        }
+    }
 }
