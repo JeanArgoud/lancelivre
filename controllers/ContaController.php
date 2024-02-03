@@ -29,16 +29,7 @@ class ContaController extends Controller
             $mensagem = $exception->getMessage();
         }
         return $this->render('erro',['mensagem'=>$mensagem]);
-    }
-
-    // Busca todos os serviços associados ao ID do usuário
-    public function actionMeusServicos()
-    {   
-        $servicos = conta::getTodosServicos(Yii::$app->user->identity->id);
-        return $this->render('meus-servicos', [
-            'servicos' => $servicos,
-        ]);
-    }
+    }    
 
     // Página para fazer login com um usuário. Redireciona para a página inicial se tentar entrar nesta página já estando logado.
     public function actionLogin()

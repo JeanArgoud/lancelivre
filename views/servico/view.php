@@ -133,6 +133,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Colaborador',
                 'value' => $model->colaborador->nome, // Substitua 'nome' pelo atributo real do colaborador
             ],
+            [
+                'label' => "Endereço",
+                'value' => $model->getEndereco()
+            ]
         ],
     ]) ?>
 

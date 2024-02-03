@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $this->title = 'Editar Serviço';
-$this->params['breadcrumbs'][] = ['label' => 'Meus Serviços', 'url' => ['conta/my-services']];
+$this->params['breadcrumbs'][] = ['label' => 'Meus Serviços', 'url' => ['servico/meus-servicos']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 <?= $form->field($model, 'preco')->textInput(['maxlength' => true]) ?>
+<?= $form->field($model, 'endereco')->textInput() ?>
 <?= $form->field($model, 'categoria')->dropDownList([
         'Geral' => 'Geral',
         'Programação' => 'Programação',

@@ -10,15 +10,15 @@ class ServicoForm extends Model
     public $preco;
     public $categoria;
     public $descricao;
+    public $endereco;
     // Adicione outros atributos conforme necessário
 
     public function rules()
     {
         return [
             [['nome', 'preco', 'categoria', 'descricao'], 'required'],
-            [['nome', 'categoria'], 'string', 'max' => 255],
-            ['descricao', 'string', 'max' => 3000],
-            [['preco'], 'number'],
+            [['nome', 'categoria','endereco'], 'string', 'max' => 255],
+            ['descricao', 'string', 'max' => 3000],            
         ];
     }
 
@@ -28,7 +28,8 @@ class ServicoForm extends Model
             'nome' => 'Nome',
             'preco' => 'Preço',
             'categoria' => 'Categoria',
-            'descricao' => 'Descrição'
+            'descricao' => 'Descrição',
+            'endereco' => 'Endereço'
             // Adicione rótulos adicionais conforme necessário
         ];
     }

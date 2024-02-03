@@ -25,15 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             $abas = [
                 ['label' => 'Informações da conta', 'url' => ['/conta/info']],
-                ['label' => 'Meus Serviços', 'url' => ['/conta/meus-servicos']],                
+                ['label' => 'Meus Serviços', 'url' => ['/servico/meus-servicos']],                
                 ['label' => 'Sair', 'url' => ['conta/logout'], 'linkOptions' => ['data-method' => 'post']]
             ];
-            if(Yii::$app->user->identity->requisicaoColaboradorAprovada()){
-                array_push($abas, ['label' => 'Interface Colaborador', 'url' => ['/colaborador/index']] );
-            }
-            else{
-                array_push($abas, ['label' => 'Tornar-se Colaborador', 'url' => ['/conta/solicitar-colaborador']] );
-            } 
+            if(!Yii::$app->user->identity->requisicaoColaboradorAprovada()){
+                array_push($abas, ['label' => 'Tornar-se Colaborador', 'url' => ['/conta/solicitar-colaborador']] );                
+            }            
 
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav flex-column'],

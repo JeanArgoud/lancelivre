@@ -13,6 +13,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'preco')->textInput() ?>
 
+    <?= $form->field($model, 'endereco')->textInput() ?>
+
     <?= $form->field($model, 'categoria')->dropDownList([
         'Geral' => 'Geral',
         'Programação' => 'Programação',
