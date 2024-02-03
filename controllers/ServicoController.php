@@ -30,13 +30,6 @@ class ServicoController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-        /*$dataProvider = Servico::find()
-            ->with('colaborador') // Carrega o relacionamento colaborador
-            ->all();
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);*/
     }
 
     public function actionView($id)

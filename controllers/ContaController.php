@@ -77,19 +77,24 @@ class ContaController extends Controller
             $post = Yii::$app->request->post('conta');   
             $novaConta->setAttributes($post, false);            
             $novaConta->defineTipo($contaAdmin,$token);
-            if($novaConta->validate()){                
-                if($novaConta->emailUnico()){
-                    if($novaConta->save()){
-                        Yii::$app->getSession()->setFlash('success','Usuário criado com sucesso!');
-                        return $this->goBack();
+            if($erroEmail = $novaConta->emailInvalido()){
+                Yii::$app->getSession()->setFlash('error',$erroEmail);
+            }
+            else{
+                if($novaConta->validate()){                
+                    if($novaConta->emailUnico()){
+                        if($novaConta->save()){
+                            Yii::$app->getSession()->setFlash('success','Usuário criado com sucesso!');
+                            return $this->goBack();
+                        }
+                    }
+                    else{
+                        Yii::$app->getSession()->setFlash('error','Já existe um usuário com este email.');
                     }
                 }
                 else{
-                    Yii::$app->getSession()->setFlash('error','Já existe um usuário com este email.');
+                    Yii::$app->getSession()->setFlash('error','Um erro inesperado aconteceu.');                  
                 }
-            }
-            else{
-                Yii::$app->getSession()->setFlash('error','Um erro inesperado aconteceu.');                  
             }
         }
 
