@@ -6,8 +6,8 @@ use Yii;
 use yii\base\Model;
 
 define("ADMIN", 1);  // Apenas 1, super usuário do sistema
-define("COLABORADOR", 2);   // Conta de uma empresa oferecendo um serviço
 define("USUARIO", 2);     // Conta de um trabalhador procurando um serviço
+define("COLABORADOR", 3);   // Conta de uma empresa oferecendo um serviço
 
 class conta extends ActiveRecord implements \yii\web\IdentityInterface
 {
