@@ -15,7 +15,6 @@ use app\models\Mensagem;
 use app\models\Avaliacao;
 use app\models\Pergunta;
 use app\models\PerguntaForm;
-use app\models\Conta;
 use yii\data\ActiveDataProvider;
 
 class ServicoController extends Controller
@@ -325,15 +324,6 @@ class ServicoController extends Controller
         return $this->render('consulta-por-colaborador', [
             'dataProvider' => $dataProvider,
             'colaboradorId' => $colaboradorId,
-        ]);
-    }
-
-    // Busca todos os serviços associados ao ID do usuário
-    public function actionMeusServicos()
-    {   
-        $servicos = conta::getTodosServicos(Yii::$app->user->identity->id);
-        return $this->render('meus-servicos', [
-            'servicos' => $servicos,
         ]);
     }
 

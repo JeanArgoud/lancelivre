@@ -8,7 +8,7 @@ use app\models\Pergunta;
 class Servico extends ActiveRecord
 {
     public $avaliacao_media;
-
+    public $endereco;
     public static function tableName()
     {
         return 'servico';
@@ -76,7 +76,7 @@ class Servico extends ActiveRecord
             return '';
         }
         else{
-            return $this->endreco;
+            return $this->endereco;
         }
     }
 }

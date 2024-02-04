@@ -150,8 +150,14 @@ class ContaController extends Controller
 
         return $this->render('solicitarColaborador',['conta'=>$conta]);
     }
-
     
-
+    // Busca todos os serviços associados ao ID do usuário
+    public function actionMeusServicos()
+    {   
+        $servicos = conta::getTodosServicos(Yii::$app->user->identity->id);
+        return $this->render('meus-servicos', [
+            'servicos' => $servicos,
+        ]);
+    }    
     // para virar colaborador: Yii::$app->urlManager->createUrl(['conta/solicitar-colaborador'])
 }
