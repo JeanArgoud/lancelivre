@@ -25,7 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             $abas = [
                 ['label' => 'Informações da conta', 'url' => ['/conta/info']],
-                ['label' => 'Meus Serviços', 'url' => ['/conta/meus-servicos']],                
+                ['label' => 'Meus Serviços', 'url' => ['/conta/meus-servicos']],
+                ['label' => 'Meus Cartões', 'url' => ['/conta/meus-cartoes']],                
                 ['label' => 'Sair', 'url' => ['conta/logout'], 'linkOptions' => ['data-method' => 'post']]
             ];
             if(Yii::$app->user->identity->requisicaoColaboradorAprovada()){

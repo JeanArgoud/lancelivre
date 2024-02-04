@@ -3,7 +3,10 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
+use yii\bootstrap4\Modal;
 use app\models\conta;
+use app\models\CartaoCredito;
+use app\models\ContratarForm;
 use kartik\rating\StarRating;
 
 /* @var $this yii\web\View */
@@ -115,7 +118,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Contatar', ['contatar', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+       
         <?= Html::a('Contratar', ['contratar', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+
         <?= Html::a('Avaliar', ['avaliar', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
     </p>
 
@@ -218,3 +223,37 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php ActiveForm::end(); ?>
     <?php endif; ?>
 </div>
+
+<script>
+    // Manipulador de clique para o botão Contratar
+    $('#btnContratar').on('click', function() {
+        // Exibir a modal
+        $('#modalContratar').modal('show');
+    });
+
+    // Manipulador de clique para o botão Contratar dentro da modal
+    $('#btnContratarModal').on('click', function() {
+        // Obter o ID do serviço (substitua pelo valor real)
+        var servicoId = 1; // Substitua pelo ID do serviço real
+
+        // Obter o ID do cartão selecionado
+        var cartaoId = $('#seuCampoDeSelecao').val(); // Substitua pelo seletor real do seu campo de seleção
+
+        // Enviar o ID do serviço e do cartão como uma requisição POST usando o framework Yii
+        $.post({
+            url: '/ser',
+            data: { servicoId: servicoId, cartaoId: cartaoId },
+            success: function(data) {
+                // Lógica adicional após a resposta da requisição, se necessário
+                console.log('Contratação realizada com sucesso');
+                
+                // Fechar a modal após a contratação
+                $('#modalContratar').modal('hide');
+            }
+        });
+    });
+JS;
+
+// Registrar o script
+$this->registerJs($script);
+</script>

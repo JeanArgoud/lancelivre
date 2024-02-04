@@ -51,7 +51,7 @@ class Servico extends ActiveRecord
 
     public function getColaborador()
     {
-        return $this->hasOne(Colaborador::class, ['id' => 'colaborador_id']);
+        return $this->hasOne(Conta::class, ['id' => 'colaborador_id']);
     }
 
     public function getPerguntas()

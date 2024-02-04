@@ -8,6 +8,9 @@ use app\models\Servico;
 use app\models\ServicoForm;
 use app\models\ServicoSearch;
 use app\models\Canal;
+use app\models\Conta;
+use app\models\CartaoCredito;
+use app\models\ContratarForm;
 use app\models\Mensagem;
 use app\models\Avaliacao;
 use app\models\Pergunta;
@@ -44,12 +47,15 @@ class ServicoController extends Controller
         $model = $this->findModel($id);
         $perguntaForm = new PerguntaForm();
         $avaliacoes = Avaliacao::find()->where(['id_servico' => $model->id])->all();
+        $contratarForm = new ContratarForm();
         return $this->render('view', [
             'model' => $model,
             'avaliacoes' => $avaliacoes,
             'perguntaForm' => $perguntaForm,
+            'contratarForm' => $contratarForm,
         ]);
     }
+
 
     public function actionContatar($id)
     {
@@ -102,6 +108,52 @@ class ServicoController extends Controller
             'mensagemModel' => $mensagemModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionContratar($id)
+    {
+        // Verifica se o usuário está logado
+        if (Yii::$app->user->isGuest) {
+            Yii::$app->session->setFlash('error', 'Você precisa estar logado para contratar um serviço.');
+            return $this->redirect(['site/login']);
+        }
+
+        // Form semi preenchido
+        $model = new ContratarForm();
+        $model->id_servico = $id;
+        $model->id_usuario = Yii::$app->user->id;
+
+        if($model->load(Yii::$app->request->post()) && $model->validate())
+        {
+            // Obtém o cartão selecionado
+            $cartao = CartaoCredito::findOne($model->id_cartao);
+            $servico = Servico::findOne($model->id_servico);
+
+            // Verifica se o cartão possui crédito suficiente
+            if ($cartao->credito < $servico->preco) {
+                Yii::$app->session->setFlash('error', 'Crédito insuficiente. Selecione outro cartão ou adicione crédito ao seu cartão.');
+                return $this->redirect(['view', 'id' => $servico->id]);
+            }
+
+            // Realiza a contratação do serviço
+            // Coloque aqui a lógica para atualizar o estado do serviço contratado, etc.
+        
+            // Atualiza o crédito do cartão
+            $cartao->credito -= $servico->preco;
+            $cartao->save();
+        
+            Yii::$app->session->setFlash('success', 'Serviço contratado com sucesso.');
+            return $this->redirect(['view', 'id' => $servico->id]);
+        }
+        // Obtém os cartões do usuário atual
+        $cartoes = CartaoCredito::getTodosCartoes(Yii::$app->user->id);
+        $cartoesList = \yii\helpers\ArrayHelper::map($cartoes, 'id', 'bandeira'); // Ajuste conforme os atributos do seu modelo Cartao
+
+        return $this->render('contratar', [
+            'model' => $model,
+            'cartoes' => $cartoesList,
+        ]);
+
     }
 
     public function actionAvaliar($id)

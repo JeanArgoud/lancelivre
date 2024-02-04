@@ -25,6 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
     .card {
         width: calc(33.33% - 10px); /* Ajuste a largura conforme necessário */
         margin: 5px; /* Ajuste conforme necessário */
+        background-color: #D1DAD0;
+        border-radius: 25px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .card-body {
+        
+    }
+
+    .card-title {
+        color: black;
     }
 
     .card-description {
@@ -32,20 +44,53 @@ $this->params['breadcrumbs'][] = $this->title;
         overflow: hidden; /* Esconde o texto que ultrapassar a altura máxima */
         text-overflow: ellipsis; /* Adiciona "..." ao final do texto que ultrapassar a altura máxima */
     }
+
+    .card-price {
+        color: black;
+    }
+
+    .search-bar {
+        display: flex;
+    }
+
+    .search-icon {
+        color: white;
+        background-color: #69A989;
+        border-radius: 25px;
+    }
+
+    .search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+     }
+  
+    .search-input{
+        width: 200px; /* Ajuste a largura conforme necessário */
+        padding: 8px; /* Ajuste o preenchimento conforme necessário */
+        border: 1px solid #ccc; /* Cor da borda */
+        border-radius: 20px; /* Raio da borda para torná-la arredondada */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para efeito tridimensional */
+        outline: none; /* Remover a borda de foco padrão */
+    }
+  
+    .search-button {
+        border: none;
+        border-radius: 50%;
+        background-color: #69A989;
+        color: white;
+    }
 </style>
 
-</style>
-
-<h1><?= Html::encode($this->title) ?></h1>
 
 <!-- Adicione a barra de pesquisa -->
 <?php $form = ActiveForm::begin([
     'action' => ['index'],
     'method' => 'get',
-    'options' => ['class' => 'form-inline mb-2'],
+    'options' => ['class' => 'form-inline mb-2 search'],
 ]); ?>
-    <?= $form->field($searchModel, 'nome')->textInput(['placeholder' => 'Pesquisar por nome'])->label(false) ?>
-    <?= Html::submitButton('<i class="fas fa-search"></i>', ['class' => 'btn btn-primary']) ?>
+    <?= $form->field($searchModel, 'nome')->textInput(['class' => 'search-input', 'placeholder' => 'Pesquisar por nome'])->label(false) ?>
+    <?= Html::submitButton('<i class="fas fa-search"></i>', ['class' => 'btn search-button']) ?>
 <?php ActiveForm::end(); ?>
 
 <?php
@@ -80,14 +125,12 @@ NavBar::end();
 <p></p>
 
 <div class="card-container">
-    <?php 
-    foreach ($dataProvider->getModels() as $model): ?>
+    <?php foreach ($dataProvider->getModels() as $model): ?>
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title"><?= Html::a(Html::encode($model->nome), ['view', 'id' => $model->id]) ?></h5>
-                <p class="card-text"><?= Html::encode($model->preco) ?></p>
+                <h5><?= Html::a(Html::encode($model->nome), ['view', 'id' => $model->id], ['class' => 'card-title']) ?></h5>
                 <div class="card-description">
-                    <?= nl2br(Html::encode($model->descricao)) ?>
+                    <p><?= nl2br(Html::encode($model->descricao)) ?></p>
                 </div>
                 <?= StarRating::widget([
                     'name' => 'rating_' . $model->id,
@@ -98,6 +141,7 @@ NavBar::end();
                         'size' => 'xs',
                     ],
                 ]); ?>
+                <p class="card-price"><?= Html::encode($model->preco) ?></p>
             </div>
         </div>
     <?php endforeach; ?>

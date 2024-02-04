@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use app\models\Conta;
 use app\models\Servico;
+use app\models\CartaoCredito;
 use app\models\RequisicaoColaborador;
 use app\models\AdminToken;
 use yii\data\ActiveDataProvider;
@@ -37,6 +38,28 @@ class ContaController extends Controller
         $servicos = conta::getTodosServicos(Yii::$app->user->identity->id);
         return $this->render('meus-servicos', [
             'servicos' => $servicos,
+        ]);
+    }
+
+    public function actionMeusCartoes()
+    {
+        $cartoes = CartaoCredito::getTodosCartoes(Yii::$app->user->identity->id);
+        return $this ->render('meus-cartoes', [
+            'cartoes' => $cartoes,
+        ]);
+    }
+
+    public function actionCriarCartao()
+    {
+        $model = new CartaoCredito();
+        $model->id_usuario = Yii::$app->user->identity->id;
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Cartão de crédito cadastrado com sucesso.');
+            return $this->redirect(['index']);
+        }
+    
+        return $this->render('criar-cartao', [
+            'model' => $model,
         ]);
     }
 
