@@ -9,7 +9,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?> <h1><?= Html::encode($this->title) ?></h1> <?php
 
 if(Yii::$app->user->identity->tipo == COLABORADOR){
-    echo Html::a('Criar Serviço', ['servico/create'], ['class' => 'btn btn-primary']);
+    echo Html::a('Oferecer Serviço', ['servico/create'], ['class' => 'btn btn-primary']);
 }
 
 echo GridView::widget([

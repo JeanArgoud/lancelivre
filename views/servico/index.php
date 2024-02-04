@@ -108,12 +108,12 @@ echo Nav::widget([
     'items' => [
         ['label' => 'Geral', 'url' => ['servico/index', 'categoria' => 'Geral'], 'options' => ['class' => 'mr-3']],
         ['label' => 'Programação', 'url' => ['servico/index', 'categoria' => 'Programação'], 'options' => ['class' => 'mr-3']],
-        ['label' => 'Design Gráfico', 'url' => '#', 'options' => ['class' => 'mr-3']],
-        ['label' => 'Marketing Digital', 'url' => '#', 'options' => ['class' => 'mr-3']],
-        ['label' => 'Escrita', 'url' => '#', 'options' => ['class' => 'mr-3']],
-        ['label' => 'Negócios', 'url' => '#', 'options' => ['class' => 'mr-3']],
-        ['label' => 'Música e Áudio', 'url' => '#', 'options' => ['class' => 'mr-3']],
-        ['label' => 'Fotografia', 'url' => '#', 'options' => ['class' => 'mr-3']],
+        ['label' => 'Design Gráfico', 'url' => ['servico/index', 'categoria' => 'Design Gráfico'], 'options' => ['class' => 'mr-3']],
+        ['label' => 'Marketing Digital', 'url' => ['servico/index', 'categoria' => 'Marketing Digital'], 'options' => ['class' => 'mr-3']],
+        ['label' => 'Escrita', 'url' => ['servico/index', 'categoria' => 'Escrita'], 'options' => ['class' => 'mr-3']],
+        ['label' => 'Negócios', 'url' => ['servico/index', 'categoria' => 'Negócios'], 'options' => ['class' => 'mr-3']],
+        ['label' => 'Música e Áudio', 'url' => ['servico/index', 'categoria' => 'Música e Áudio'], 'options' => ['class' => 'mr-3']],
+        ['label' => 'Fotografia', 'url' => ['servico/index', 'categoria' => 'Fotografia'], 'options' => ['class' => 'mr-3']],
     ],
 ]);
 

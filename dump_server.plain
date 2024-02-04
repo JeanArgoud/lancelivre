@@ -5,7 +5,7 @@
 -- Dumped from database version 13.10
 -- Dumped by pg_dump version 13.10
 
--- Started on 2024-02-02 20:34:38
+-- Started on 2024-02-03 16:41:28
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -228,13 +228,14 @@ ALTER TABLE public.requisicao_colaborador OWNER TO postgres;
 --
 
 CREATE TABLE public.servico (
-    nome character varying(30) NOT NULL,
+    nome character varying(64) NOT NULL,
     preco money NOT NULL,
     colaborador_id smallint,
     id bigint NOT NULL,
     avaliacao smallint DEFAULT 0 NOT NULL,
     categoria character varying(255) DEFAULT 0 NOT NULL,
-    descricao character varying(3000) DEFAULT 'descricao'::character varying NOT NULL
+    descricao character varying(3000) DEFAULT 'descricao'::character varying NOT NULL,
+    endereco character varying(255)
 );
 
 
@@ -264,6 +265,7 @@ ALTER TABLE public.servico ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 INSERT INTO public.admin_token (id, token, usado, data_usado) VALUES (1, 'jd91oi8jhd0981ojd9812nd8291hudeed1098hdu09d30912823883d3jqd8', true, '2024-01-30');
 INSERT INTO public.admin_token (id, token, usado, data_usado) VALUES (2, '2f9oiujj298jh298jd2983jd20983u0319j109j091r3h3r', true, '2024-01-30');
 INSERT INTO public.admin_token (id, token, usado, data_usado) VALUES (3, 'dh9un23cr8uvohklas987vso9r7hn9wlo3l3oho7f3vl4', true, '2024-01-30');
+INSERT INTO public.admin_token (id, token, usado, data_usado) VALUES (4, 'StringComQualquerTextoAleatorio', false, NULL);
 
 
 --
@@ -288,8 +290,8 @@ INSERT INTO public.admin_token (id, token, usado, data_usado) VALUES (3, 'dh9un2
 -- Data for Name: conta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.conta (id, nome, senha, email, tipo, endereco, escolaridade, profissao) VALUES (6, 'JeanTeste', 'jnsoad', 'jean.s.argoud@gmail.com', 2, 'Meu endereço', 'formado', 'aposentado sla');
 INSERT INTO public.conta (id, nome, senha, email, tipo, endereco, escolaridade, profissao) VALUES (7, 'JeanAdmin', 'jnsoad', 'jean_s.argoud@hotmail.com', 1, NULL, NULL, NULL);
+INSERT INTO public.conta (id, nome, senha, email, tipo, endereco, escolaridade, profissao) VALUES (6, 'JeanTeste', 'jnsoad', 'jean.s.argoud@gmail.com', 3, 'Meu endereço', 'formado', 'aposentado sla');
 
 
 --
@@ -324,6 +326,8 @@ INSERT INTO public.requisicao_colaborador (id, conta_id, aprovado, mensagem, dat
 -- Data for Name: servico; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.servico (nome, preco, colaborador_id, id, avaliacao, categoria, descricao, endereco) OVERRIDING SYSTEM VALUE VALUES ('Queiam de plantação de cana de açucar', 'R$ 2.000,00', 6, 2, 0, 'Geral', 'Queimar plantação de cana para colheita', 'Amazona, rua tal, avenida dos perdidos, 277');
+INSERT INTO public.servico (nome, preco, colaborador_id, id, avaliacao, categoria, descricao, endereco) OVERRIDING SYSTEM VALUE VALUES ('Desenvolver novo site de empregos', 'R$ 72,00', 6, 1, 0, 'Programação', 'Este é um emprego para desenvolver um website', 'virtual');
 
 
 --
@@ -368,7 +372,7 @@ SELECT pg_catalog.setval('public.pergunta_id_seq', 1, false);
 -- Name: servico_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.servico_id_seq', 1, false);
+SELECT pg_catalog.setval('public.servico_id_seq', 2, true);
 
 
 --
@@ -461,7 +465,7 @@ ALTER TABLE ONLY public.pergunta
     ADD CONSTRAINT id_usuario_fkey FOREIGN KEY (id_usuario) REFERENCES public.conta(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
--- Completed on 2024-02-02 20:34:39
+-- Completed on 2024-02-03 16:41:28
 
 --
 -- PostgreSQL database dump complete

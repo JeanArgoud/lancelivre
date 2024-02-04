@@ -6,8 +6,8 @@ use Yii;
 use yii\base\Model;
 
 define("ADMIN", 1);  // Apenas 1, super usuário do sistema
-define("COLABORADOR", 2);   // Conta de uma empresa oferecendo um serviço
 define("USUARIO", 2);     // Conta de um trabalhador procurando um serviço
+define("COLABORADOR", 3);   // Conta de uma empresa oferecendo um serviço
 
 class conta extends ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -120,6 +120,35 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
         }
         $novoId = $contaMaiorId->id + 1;
         return $novoId;
+    }
+
+    // Checa se o email do usuário é válido
+    public function emailInvalido()
+    {
+        if($this->email == ''){
+            return "O email do usuário '".$this->username."' não foi preenchido.";
+        }
+        else if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            return "O email '".$this->email."' não é válido.";
+        }
+        else if($provedor = $this->provedorEmailProibido()) {
+            return "O Lancelivre não aceita emails do provedor ".$provedor.".";
+        }
+        return false;
+    }
+
+    // Checa se o email definido nesta conta faz parte da lista de provedores autorizados pelo Lancelivre
+    public function provedorEmailProibido()
+    {
+        $provedoresAceitos = ['gmail.com','outlook.com','hotmail.com','yahoo.com','icloud.com','protonmail.com','fastmail.com','zoho.com','tutanota.com','aol.com'];
+        $partesEmail = explode('@',$this->email);
+        $provedorEmail = $partesEmail[1];
+        if(in_array($provedorEmail,$provedoresAceitos)){
+            return false;
+        }
+        else{
+            return $provedorEmail;
+        }
     }
 
     // Procura se este email é único ou existe já outra conta com este email 

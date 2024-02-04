@@ -15,7 +15,7 @@ use app\models\Mensagem;
 use app\models\Avaliacao;
 use app\models\Pergunta;
 use app\models\PerguntaForm;
-
+use app\models\Conta;
 use yii\data\ActiveDataProvider;
 
 class ServicoController extends Controller
@@ -33,18 +33,11 @@ class ServicoController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-        /*$dataProvider = Servico::find()
-            ->with('colaborador') // Carrega o relacionamento colaborador
-            ->all();
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);*/
     }
 
     public function actionView($id)
     {
-        $model = $this->findModel($id);
+        $model = servico::findModel($id);
         $perguntaForm = new PerguntaForm();
         $avaliacoes = Avaliacao::find()->where(['id_servico' => $model->id])->all();
         $contratarForm = new ContratarForm();
@@ -65,7 +58,7 @@ class ServicoController extends Controller
             return $this->redirect(['conta/login']);
         }
         // Obtenha o serviço
-        $servico = $this->findModel($id);
+        $servico = servico::findModel($id);
 
         // Obtenha o colaborador associado ao serviço
         $colaborador = $servico->colaborador;
@@ -164,7 +157,7 @@ class ServicoController extends Controller
             return $this->redirect(['conta/login']);
         }
     
-        $servico = $this->findModel($id);
+        $servico = servico::findModel($id);
         $usuarioId = Yii::$app->user->identity->id;
     
         // Verifique se o usuário já avaliou este serviço
@@ -183,7 +176,7 @@ class ServicoController extends Controller
 
     public function actionRespostaPergunta($id)
     {
-        $model = $this->findModel($id);
+        $model = servico::findModel($id);
     
         if (Yii::$app->request->isPost) {
             $perguntaId = Yii::$app->request->post('perguntaId');
@@ -213,7 +206,7 @@ class ServicoController extends Controller
 
     public function actionEnviarPergunta($id)
     {
-        $model = $this->findModel($id);
+        $model = servico::findModel($id);
         $perguntaForm = new PerguntaForm();
 
         if ($perguntaForm->load(Yii::$app->request->post()) && $perguntaForm->validate()) {
@@ -235,15 +228,6 @@ class ServicoController extends Controller
         return $this->redirect(['view', 'id' => $model->id]);
     }
 
-    protected function findModel($id)
-    {
-        if (($model = Servico::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new \yii\web\NotFoundHttpException('Serviço não encontrado.');
-    }
-
     public function actionCreate()
     {
         $model = new ServicoForm();
@@ -256,12 +240,13 @@ class ServicoController extends Controller
             $servico->preco = $model->preco;
             $servico->categoria = $model->categoria;
             $servico->descricao = $model->descricao;
+            $servico->endereco = $model->endereco;
             $servico->avaliacao = 0;
 
             if ($servico->save())
             {
                 Yii::$app->session->setFlash('success', 'Serviço criado com sucesso.');
-                return $this->redirect(['conta/my-services']);
+                return $this->redirect(['servico/meus-servicos']);
             }
             else{
                 Yii::$app->session->setFlash('error', 'Erro ao criar o serviço.');
@@ -285,16 +270,18 @@ class ServicoController extends Controller
         // Preenche o modelo do formulário com os valores do serviço existente
         $model->nome = $servico->nome;
         $model->preco = $servico->preco;
+        $model->endereco = $servico->endereco;
         $model->categoria = $servico->categoria;
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(Yii::$app->request->post())) {
             // Atualizar os atributos do serviço com os dados do formulário
             $servico->nome = $model->nome;
             $servico->preco = $model->preco;
+            $servico->endereco = $model->endereco;
             $servico->categoria = $model->categoria;
 
             if ($servico->save()) {
                 Yii::$app->session->setFlash('success', 'Serviço atualizado com sucesso.');
-                return $this->redirect(['conta/my-services']);
+                return $this->redirect(['servico/meus-servicos']);
             } else {
                 Yii::$app->session->setFlash('error', 'Erro ao atualizar o serviço.');
             }
@@ -320,7 +307,7 @@ class ServicoController extends Controller
             Yii::$app->session->setFlash('error', 'Erro ao deletar o serviço.');
         }
 
-        return $this->redirect(['conta/my-services']);
+        return $this->redirect(['servico/meus-servicos']);
     }
 
     public function actionShowService($serviceId)
@@ -341,6 +328,14 @@ class ServicoController extends Controller
         ]);
     }
 
+    // Busca todos os serviços associados ao ID do usuário
+    public function actionMeusServicos()
+    {   
+        $servicos = conta::getTodosServicos(Yii::$app->user->identity->id);
+        return $this->render('meus-servicos', [
+            'servicos' => $servicos,
+        ]);
+    }
 
     //pesquisa por nome
 

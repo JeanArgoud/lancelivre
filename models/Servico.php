@@ -17,9 +17,8 @@ class Servico extends ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'preco', 'colaborador_id', 'avaliacao', 'categoria', 'descricao'], 'required'],
-            [['preco'], 'number'],
-            [['nome', 'categoria'], 'string', 'max' => 255],
+            [['nome', 'preco', 'colaborador_id', 'avaliacao', 'categoria', 'descricao'], 'required'],            
+            [['nome', 'categoria','endereco'], 'string', 'max' => 255],
             ['descricao', 'string', 'max' => 3000],
             ['avaliacao', 'number'],
         ];
@@ -32,6 +31,7 @@ class Servico extends ActiveRecord
             'preco' => 'Preço',
             'avaliacao' => 'Avaliação',
             'descricao' => 'Descrição',
+            'endereco' => 'Endereço',
         ];
     }
 
@@ -57,5 +57,26 @@ class Servico extends ActiveRecord
     public function getPerguntas()
     {
         return $this->hasMany(Pergunta::class, ['id_servico' => 'id']);
+    }
+
+    // Retorna um serviço específico de acordo com o id
+    public function findModel($id)
+    {
+        if (($model = Servico::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new \yii\web\NotFoundHttpException('Serviço não encontrado.');
+    }
+
+    // Retorna o endereço aonde acontecerá o serviço
+    public function getEndereco()
+    {
+        if($this->endereco == null){
+            return '';
+        }
+        else{
+            return $this->endreco;
+        }
     }
 }
