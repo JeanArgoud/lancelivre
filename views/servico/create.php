@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+$this->registerCssFile('@web/css/style.css');
 ?>
 
 <div class="servico-form">

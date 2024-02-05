@@ -1,6 +1,7 @@
 <?php 
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
+$this->registerCssFile('@web/css/style.css');
 ?>
 
 <div>

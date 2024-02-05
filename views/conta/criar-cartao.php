@@ -7,6 +7,7 @@ use yii\widgets\ActiveForm;
 $this->title = 'Criar Cartão de Crédito';
 $this->params['breadcrumbs'][] = ['label' => 'Minha Conta', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('@web/css/style.css');
 ?>
 
 <h1><?= Html::encode($this->title) ?></h1>

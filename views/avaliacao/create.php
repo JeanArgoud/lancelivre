@@ -12,6 +12,7 @@ $this->title = 'Avaliar Serviço';
 $this->params['breadcrumbs'][] = ['label' => 'Serviços', 'url' => ['servico/index']];
 $this->params['breadcrumbs'][] = ['label' => $model->servico->nome, 'url' => ['servico/view', 'id' => $model->id_servico]];
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('@web/css/style.css');
 ?>
 
 <div class="avaliacao-create">
@@ -30,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model, 'comentario')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Salvar', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Salvar', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

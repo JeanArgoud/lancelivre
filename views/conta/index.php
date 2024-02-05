@@ -5,6 +5,7 @@ use yii\bootstrap4\NavBar;
 
 $this->title = 'Minha Conta';
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('@web/css/style.css');
 ?>
 
 <div class="row">

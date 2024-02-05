@@ -8,6 +8,7 @@ use yii\widgets\ActiveForm;
 $this->title = 'Contratar Serviço';
 $this->params['breadcrumbs'][] = ['label' => 'Serviços', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('@web/css/style.css');
 
 ?>
 
@@ -21,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model, 'id_cartao')->dropDownList($cartoes) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Contratar', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Contratar', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
