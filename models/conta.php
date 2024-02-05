@@ -123,7 +123,7 @@ class conta extends ActiveRecord implements \yii\web\IdentityInterface
     }
 
     // Checa se o email do usuário é válido
-    public function emailInvalido()
+    public function validaEmail()
     {
         if($this->email == ''){
             return "O email do usuário '".$this->username."' não foi preenchido.";

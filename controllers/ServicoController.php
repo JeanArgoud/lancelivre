@@ -245,7 +245,7 @@ class ServicoController extends Controller
             if ($servico->save())
             {
                 Yii::$app->session->setFlash('success', 'Serviço criado com sucesso.');
-                return $this->redirect(['servico/meus-servicos']);
+                return $this->redirect(['conta/meus-servicos']);
             }
             else{
                 Yii::$app->session->setFlash('error', 'Erro ao criar o serviço.');
@@ -280,7 +280,7 @@ class ServicoController extends Controller
 
             if ($servico->save()) {
                 Yii::$app->session->setFlash('success', 'Serviço atualizado com sucesso.');
-                return $this->redirect(['servico/meus-servicos']);
+                return $this->redirect(['conta/meus-servicos']);
             } else {
                 Yii::$app->session->setFlash('error', 'Erro ao atualizar o serviço.');
             }
@@ -306,7 +306,7 @@ class ServicoController extends Controller
             Yii::$app->session->setFlash('error', 'Erro ao deletar o serviço.');
         }
 
-        return $this->redirect(['servico/meus-servicos']);
+        return $this->redirect(['conta/meus-servicos']);
     }
 
     public function actionShowService($serviceId)

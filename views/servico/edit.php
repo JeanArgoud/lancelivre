@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $this->title = 'Editar Serviço';
-$this->params['breadcrumbs'][] = ['label' => 'Meus Serviços', 'url' => ['servico/meus-servicos']];
+$this->params['breadcrumbs'][] = ['label' => 'Meus Serviços', 'url' => ['conta/meus-servicos']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

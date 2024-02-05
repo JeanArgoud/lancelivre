@@ -100,7 +100,7 @@ class ContaController extends Controller
             $post = Yii::$app->request->post('conta');   
             $novaConta->setAttributes($post, false);            
             $novaConta->defineTipo($contaAdmin,$token);
-            if($erroEmail = $novaConta->emailInvalido()){
+            if($erroEmail = $novaConta->validaEmail()){
                 Yii::$app->getSession()->setFlash('error',$erroEmail);
             }
             else{
