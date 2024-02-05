@@ -27,7 +27,8 @@ $this->registerCssFile('@web/css/style.css');
             $abas = [
                 ['label' => 'Informações da conta', 'url' => ['/conta/info']],
                 ['label' => 'Meus Serviços', 'url' => ['/conta/meus-servicos']],
-                ['label' => 'Meus Cartões', 'url' => ['/conta/meus-cartoes']],                
+                ['label' => 'Meus Cartões', 'url' => ['/conta/meus-cartoes']],  
+                ['label' => 'Notificações', 'url' => ['/conta/notificacoes']],                              
                 ['label' => 'Sair', 'url' => ['conta/logout'], 'linkOptions' => ['data-method' => 'post']]
             ];
             if(!Yii::$app->user->identity->requisicaoColaboradorAprovada()){

@@ -4,7 +4,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Criar Cartão de Crédito';
+$this->title = 'Adicionar Cartão de Crédito';
 $this->params['breadcrumbs'][] = ['label' => 'Minha Conta', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerCssFile('@web/css/style.css');

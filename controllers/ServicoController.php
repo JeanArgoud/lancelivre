@@ -15,6 +15,7 @@ use app\models\Mensagem;
 use app\models\Avaliacao;
 use app\models\Pergunta;
 use app\models\PerguntaForm;
+use app\models\Notificacao;
 use yii\data\ActiveDataProvider;
 
 class ServicoController extends Controller
@@ -114,26 +115,43 @@ class ServicoController extends Controller
         $model = new ContratarForm();
         $model->id_servico = $id;
         $model->id_usuario = Yii::$app->user->id;
-
+        
         if($model->load(Yii::$app->request->post()) && $model->validate())
         {
             // Obtém o cartão selecionado
-            $cartao = CartaoCredito::findOne($model->id_cartao);
             $servico = Servico::findOne($model->id_servico);
+            $cartao_usuario = CartaoCredito::findOne($model->id_cartao);
+            $cartao_colab = CartaoCredito::findOne($servico->colaborador_id);
 
-            // Verifica se o cartão possui crédito suficiente
+            /*// Verifica se o cartão possui crédito suficiente
             if ($cartao->credito < $servico->preco) {
                 Yii::$app->session->setFlash('error', 'Crédito insuficiente. Selecione outro cartão ou adicione crédito ao seu cartão.');
                 return $this->redirect(['view', 'id' => $servico->id]);
             }
-
-            // Realiza a contratação do serviço
-            // Coloque aqui a lógica para atualizar o estado do serviço contratado, etc.
         
             // Atualiza o crédito do cartão
             $cartao->credito -= $servico->preco;
             $cartao->save();
-        
+            */
+            $cartaoUsuarioId = $cartao_usuario->id;
+            $cartaoColaboradorId = $cartao_colab->id;
+            $valorDoServico = $servico->preco;
+            // Tentar depositar o valor na conta do colaborador
+            if (!CartaoCredito::depositarValor($cartaoUsuarioId, $cartaoColaboradorId, $valorDoServico)) {
+                Yii::$app->session->setFlash('error', 'Crédito insuficiente no cartão.');
+                return $this->redirect(['visualizar', 'id' => $id]);
+            }
+            // Após a transação bem-sucedida, notifica o colaborador e o usuário comprador
+            $usuarioComprador = Yii::$app->user->identity;
+            
+            // Notifica o usuario
+            $mensagemNotificacao = 'Você contratou os serviços de ' . $servico->colaborador->nome . ' no valor de ' . $valorDoServico; 
+            Notificacao::enviarNotificacao($model->id_usuario, $mensagemNotificacao);
+            
+            // Notificar colaborador
+            $mensagemNotificacao = $usuarioComprador->nome . ' contratou seus serviços!' . ' depositado valor de' . $valorDoServico;
+            Notificacao::enviarNotificacao($servico->colaborador_id, $mensagemNotificacao);
+
             Yii::$app->session->setFlash('success', 'Serviço contratado com sucesso.');
             return $this->redirect(['view', 'id' => $servico->id]);
         }
