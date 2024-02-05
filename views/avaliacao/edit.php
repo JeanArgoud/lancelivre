@@ -12,6 +12,7 @@ $this->title = 'Editar Avaliação';
 $this->params['breadcrumbs'][] = ['label' => 'Avaliações', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Editar';
+$this->registerCssFile('@web/css/style.css');
 ?>
 <div class="avaliacao-editar">
 
@@ -30,7 +31,7 @@ $this->params['breadcrumbs'][] = 'Editar';
     <?= $form->field($model, 'comentario')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Salvar', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Salvar', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

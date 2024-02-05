@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 $this->title = 'Editar Serviço';
 $this->params['breadcrumbs'][] = ['label' => 'Meus Serviços', 'url' => ['conta/meus-servicos']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('@web/css/style.css');
 ?>
 
 <h1><?= Html::encode($this->title) ?></h1>

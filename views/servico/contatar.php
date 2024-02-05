@@ -16,6 +16,7 @@ $this->title = 'Contatar ' . $model->colaborador->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Serviços', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->nome, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('@web/css/style.css');
 ?>
 
 <div class="servico-contatar">

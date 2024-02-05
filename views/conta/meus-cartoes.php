@@ -5,10 +5,11 @@ use yii\helpers\Url;
 
 $this->title = 'Meus Cartões';
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('@web/css/style.css');
 
 ?> <h1><?= Html::encode($this->title) ?></h1> <?php
 
-echo Html::a('Criar Cartão', ['conta/criar-cartao'], ['class' => 'btn btn-primary']);
+echo Html::a('Adicionar Cartão', ['conta/adicionar-cartao'], ['class' => 'btn btn-primary']);
 
 
 echo GridView::widget([

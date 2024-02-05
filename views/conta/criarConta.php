@@ -1,6 +1,7 @@
 <?php 
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
+$this->registerCssFile('@web/css/style.css');
 ?>
 
 <div>
@@ -15,7 +16,7 @@ use yii\helpers\Html;
         echo $form->field($novaConta, 'senha')->passwordInput()->label('Senha'); 
         echo $form->field($novaConta, 'email')->textInput()->label('Email');
         
-        echo Html::submitButton('Criar'); 
+        echo Html::submitButton('Criar', ['class' => 'btn btn-primary', 'name' => 'criar-button']);
 
         ActiveForm::end();
     ?>

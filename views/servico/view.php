@@ -15,6 +15,7 @@ use kartik\rating\StarRating;
 $this->title = $model->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Serviços', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('@web/css/style.css');
 ?>
 
 
@@ -73,6 +74,20 @@ $this->params['breadcrumbs'][] = $this->title;
     .btn-enviar-mensagem:hover {
         background-color: #0056b3;
     }
+
+    .btn-success {
+        margin-left: auto;
+        width: 20%;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .btn-warning {
+        margin-left: 1%;
+    }
 </style>
 
 <script>
@@ -116,12 +131,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="servico-view">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Contatar', ['contatar', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-       
-        <?= Html::a('Contratar', ['contratar', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+    <p class="buttons">
+        <?= Html::a('Entre em contato', ['contatar', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 
         <?= Html::a('Avaliar', ['avaliar', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
+       
+        <?= Html::a('Quero contratar!', ['contratar', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= DetailView::widget([

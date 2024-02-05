@@ -8,6 +8,7 @@
 use yii\helpers\Html;
 
 $this->title = $name;
+$this->registerCssFile('@web/css/style.css');
 ?>
 <div class="site-error">
 

@@ -5,6 +5,7 @@ use yii\helpers\Url;
 
 $this->title = 'Meus Serviços';
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('@web/css/style.css');
 
 ?> <h1><?= Html::encode($this->title) ?></h1> <?php
 

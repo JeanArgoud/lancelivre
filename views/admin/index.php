@@ -3,6 +3,7 @@ use yii\widgets\ListView;
 
 $this->title = 'Área Admin';
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('@web/css/style.css');
 ?>
 
 

@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     .card-container {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between; /* ou flex-start, flex-end, center, etc. dependendo do alinhamento desejado */
+        justify-content: flex-start; /* ou flex-start, flex-end, center, etc. dependendo do alinhamento desejado */
         margin: -5px; /* Ajuste conforme necessário */
     }
 
@@ -49,36 +49,43 @@ $this->params['breadcrumbs'][] = $this->title;
         color: black;
     }
 
-    .search-bar {
-        display: flex;
+    .form-inline {
+        display: flex; /* Confirma que estamos utilizando Flexbox */
+        width: 100%; /* Ocupa toda a largura do seu container pai */
+        flex-wrap: nowrap; /* Previne a quebra de linha dos itens internos */
     }
 
-    .search-icon {
-        color: white;
-        background-color: #69A989;
-        border-radius: 25px;
+    .form-inline .form-group {
+        flex-grow: 1; /* Faz o .form-group crescer para ocupar o espaço disponível */
+        width: 90%; /* Garante que o .form-group tente ocupar toda a largura */
+        margin-right: 8px; /* Opcional: Adiciona um espaço à direita, se necessário */
+        height: 40px;
     }
 
-    .search {
-        display: flex;
+    .form-inline .form-group .search-input {
+        width: 100%; /* Faz a barra de pesquisa ocupar toda a largura do .form-group */
+        border-radius: 20px; /* Ajuste o valor conforme desejar para as bordas arredondadas */
+        height: 100%;
+        padding-left: 8px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: #D1DAD0; 
+    }
+
+    .form-inline .search-button {
+        width: 40px; /* Define a largura do botão */
+        height: 40px; /* Define a altura do botão para igualar a largura, criando um quadrado */
+        border-radius: 50%; /* Faz o quadrado se tornar um círculo */
+        padding: 0; /* Ajuste ou remova o padding para garantir que o ícone fique centralizado */
+        display: flex; /* Utiliza flexbox para centralizar o conteúdo (ícone ou texto) dentro do botão */
+        justify-content: center; /* Centraliza o conteúdo horizontalmente */
+        align-items: center; /* Centraliza o conteúdo verticalmente */
+        background-color: #D1DAD0; 
+        border: none; 
+    }
+
+    .collapse .container {
         justify-content: center;
-        align-items: center;
-     }
-  
-    .search-input{
-        width: 200px; /* Ajuste a largura conforme necessário */
-        padding: 8px; /* Ajuste o preenchimento conforme necessário */
-        border: 1px solid #ccc; /* Cor da borda */
-        border-radius: 20px; /* Raio da borda para torná-la arredondada */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para efeito tridimensional */
-        outline: none; /* Remover a borda de foco padrão */
-    }
-  
-    .search-button {
-        border: none;
-        border-radius: 50%;
-        background-color: #69A989;
-        color: white;
     }
 </style>
 
