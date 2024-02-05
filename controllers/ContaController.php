@@ -41,7 +41,7 @@ class ContaController extends Controller
         ]);
     }
 
-    public function actionCriarCartao()
+    public function actionAdicionarCartao()
     {
         $model = new CartaoCredito();
         $model->id_usuario = Yii::$app->user->identity->id;
@@ -50,7 +50,7 @@ class ContaController extends Controller
             return $this->redirect(['index']);
         }
     
-        return $this->render('criar-cartao', [
+        return $this->render('adicionar-cartao', [
             'model' => $model,
         ]);
     }
