@@ -5,6 +5,8 @@ use yii\helpers\Html;
 
 $this->title = 'Notificações';
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerCssFile('@web/css/style.css');
 ?>
 
 <div class="notificacoes-index">
