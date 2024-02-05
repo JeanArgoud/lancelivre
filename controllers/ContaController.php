@@ -8,6 +8,7 @@ use app\models\Conta;
 use app\models\Servico;
 use app\models\CartaoCredito;
 use app\models\RequisicaoColaborador;
+use app\models\Notificacao;
 use app\models\AdminToken;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -150,7 +151,7 @@ class ContaController extends Controller
 
         return $this->render('solicitarColaborador',['conta'=>$conta]);
     }
-    
+
     // Busca todos os serviços associados ao ID do usuário
     public function actionMeusServicos()
     {   
@@ -159,5 +160,16 @@ class ContaController extends Controller
             'servicos' => $servicos,
         ]);
     }    
+
+    public function actionNotificacoes()
+    {
+        // Obtém as notificações do usuário atual
+        $notificacoes = Notificacao::find()
+            ->where(['id_usuario' => Yii::$app->user->id])
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
+
+        return $this->render('notificacoes', ['notificacoes' => $notificacoes]);
+    }
     // para virar colaborador: Yii::$app->urlManager->createUrl(['conta/solicitar-colaborador'])
 }
