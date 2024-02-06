@@ -39,10 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
         color: black;
     }
 
-    .card-description {
-        max-height: 5em; /* Defina a altura máxima em até três linhas */
-        overflow: hidden; /* Esconde o texto que ultrapassar a altura máxima */
-        text-overflow: ellipsis; /* Adiciona "..." ao final do texto que ultrapassar a altura máxima */
+    .card-description p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Limita o texto a mostrar apenas 3 linhas */
+        -webkit-box-orient: vertical;
+        max-height: 54px; /* Ajuste conforme necessário baseado no tamanho da fonte e altura da linha */
     }
 
     .card-price {
