@@ -18,7 +18,7 @@ $this->registerCssFile('@web/css/style.css');
         echo $form->field($conta, 'escolaridade')->textInput()->label('Escolaridade'); 
         echo $form->field($conta, 'profissao')->textInput()->label('Profissão');
         
-        echo Html::submitButton('Enviar'); 
+        echo Html::submitButton('Enviar', ['class' => 'btn btn-primary', 'name' => 'enviar-button']); 
     
         ActiveForm::end();
     }
