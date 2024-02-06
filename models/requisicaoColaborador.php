@@ -34,8 +34,19 @@ class RequisicaoColaborador extends ActiveRecord
         if($this->mensagem_aprovacao_lida == null){
             $this->mensagem_aprovacao_lida = false;
         }
+        if($this->aprovado){
+            $this->promoveUsuario($this->conta_id);
+        }
 
         return parent::beforeSave($insert);
+    }
+
+    // Promove um usuário para colaborador
+    public function promoveUsuario($usuarioId)
+    {
+        $usuario = conta::find()->where(['id'=>$usuario_id])->one();
+        $usuario->tipo = COLABORADOR;
+        $usuario->save();
     }
 
     // Retorna um id 1 mais alto que o maior id que tem na tabela
