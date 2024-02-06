@@ -187,7 +187,7 @@ $this->registerCssFile('@web/css/style.css');
 
     <h2>Perguntas</h2>
 
-    <?php $currentUserIsCollaborator = Yii::$app->user->identity->id === $model->colaborador_id; ?>
+    <?php $currentUserIsCollaborator = Yii::$app->user->id === $model->colaborador_id; ?>
     <!-- Exibição das perguntas -->
     <?php if(!empty($model->perguntas)): ?>
         <?php foreach ($model->perguntas as $pergunta): ?>
