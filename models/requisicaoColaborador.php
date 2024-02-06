@@ -53,6 +53,12 @@ class RequisicaoColaborador extends ActiveRecord
         return $novoId;
     }
 
+    // // Retorna a model do usuário que enviou a requisição
+    // public function getUsuario()
+    // {
+    //     return conta::find()->where(['id'=>$this->conta_id])->one();        
+    // }
+
     // Formata uma data para ser mostrada na tela
     public function formataData($data)
     {
