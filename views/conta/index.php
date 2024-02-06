@@ -10,14 +10,7 @@ $this->registerCssFile('@web/css/style.css');
 
 <div class="row">
     <div class="col-md-3">
-        <?php
-            if($mensagem = Yii::$app->user->identity->possuiMensagemAprovacaoColaborador()){
-                if($mensagem != ''){
-                    $mensagem = 'Mensagem da gestão: "'.$mensagem.'"';
-                }
-                echo '<div>Você foi aprovado como colaborador! '.$mensagem.'</div>';
-            }
-
+        <?php           
             NavBar::begin([
                 'options' => [
                     'class' => 'navbar-expand-md navbar-light bg-light',

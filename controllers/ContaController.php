@@ -19,6 +19,14 @@ class ContaController extends Controller
     // Página inicial do perfil de conta do usuário
     public function actionIndex()
     {
+        if($resposta = Yii::$app->user->identity->possuiMensagemAprovacaoColaborador()){
+            $pre_resposta = '';
+            if($resposta != ''){
+                $pre_resposta = 'Mensagem da gestão: "'.$resposta.'"';
+            }
+            $mensagem = '<div>Você foi aprovado como colaborador! '.$pre_resposta.'</div>';
+            Yii::$app->getSession()->setFlash('success',$mensagem);
+        }
         return $this->render('index');
     }
 

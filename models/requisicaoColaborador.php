@@ -44,7 +44,7 @@ class RequisicaoColaborador extends ActiveRecord
     // Promove um usuário para colaborador
     public function promoveUsuario($usuarioId)
     {
-        $usuario = conta::find()->where(['id'=>$usuario_id])->one();
+        $usuario = conta::find()->where(['id'=>$usuarioId])->one();
         $usuario->tipo = COLABORADOR;
         $usuario->save();
     }
