@@ -69,7 +69,7 @@ class RequisicaoColaborador extends ActiveRecord
     // Retorna a data que o admin respondeu a requisição
     public function dataRespostaFormatada()
     {
-        $this->formataData($this->data_resposta);
+        return $this->formataData($this->data_resposta);
     }
 
     // Retorna um texto dizendo se a requisição está aprovada ou não

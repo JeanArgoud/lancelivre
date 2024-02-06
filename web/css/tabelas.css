@@ -1,0 +1,32 @@
+.tabela-requisicoes {
+    width: 100%; /* Faz a tabela ocupar toda a largura disponível */
+    border-collapse: collapse; /* Remove o espaçamento entre bordas das células */
+}
+
+.tabela-requisicoes, .tabela-requisicoes th, .tabela-requisicoes td {
+    border: 1px solid black; /* Adiciona bordas */
+    margin-bottom: 1%;
+}
+
+.tabela-requisicoes td {
+    padding: 10px; /* Adiciona espaçamento dentro das células */
+}
+
+.tabela-requisicoes th {
+    background-color: #d1dad0; /* Cor de fundo para os cabeçalhos */
+    color: #333; /* Cor do texto */
+    padding: 10px; /* Espaçamento interno */
+}
+
+h2 {
+    color: #333; /* Cor do texto */
+    margin-bottom: 20px; /* Espaçamento abaixo do título para separá-lo da tabela */
+}
+
+.analisar-button, .visualizar-documentos-button {
+    color: #d48b64;
+}
+
+.analisar-button:hover, .visualizar-documentos-button:hover {
+    color: #9b4e25;
+}
