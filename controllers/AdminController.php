@@ -33,7 +33,9 @@ class AdminController extends Controller
 
         if ($requisicao->load(Yii::$app->request->post())) {
             $post = Yii::$app->request->post('RequisicaoColaborador');  
-            $requisicao->setAttributes($post, false);
+            $requisicao->setAttributes($post, false);            
+            date_default_timezone_set('Etc/GMT+3');
+            $requisicao->data_resposta = date('Y-m-d h:i:s A');            
             if($requisicao->aprovado !== null){   
                 if($requisicao->save()){
                     Yii::$app->getSession()->setFlash('success','Requisição respondida!');
