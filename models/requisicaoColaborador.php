@@ -30,11 +30,7 @@ class RequisicaoColaborador extends ActiveRecord
         }
         if($this->id == null){
             $this->id = $this->autoincrementarId();
-        }
-        if($this->data_resposta == null){
-            date_default_timezone_set('Etc/GMT+3');
-            $this->data_resposta = date('Y-m-d h:i:s A');
-        }
+        }        
         if($this->mensagem_aprovacao_lida == null){
             $this->mensagem_aprovacao_lida = false;
         }

@@ -24,8 +24,7 @@ $this->registerCssFile('@web/css/style.css');
                 ],
             ]);
 
-            $abas = [
-                ['label' => 'Informações da conta', 'url' => ['/conta/info']],
+            $abas = [                
                 ['label' => 'Meus Serviços', 'url' => ['/conta/meus-servicos']],
                 ['label' => 'Meus Cartões', 'url' => ['/conta/meus-cartoes']],  
                 ['label' => 'Notificações', 'url' => ['/conta/notificacoes']],                              
