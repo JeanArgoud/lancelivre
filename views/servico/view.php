@@ -182,7 +182,7 @@ $this->registerCssFile('@web/css/style.css');
             </div>
         <?php endforeach; ?>
     <?php else: ?>
-        Não há avaliações.
+        <p>Não há avaliações.</p>
     <?php endif ?>
 
     <h2>Perguntas</h2>
@@ -223,7 +223,7 @@ $this->registerCssFile('@web/css/style.css');
             </div>
         <?php endforeach; ?>
     <?php else: ?>  
-        Não há perguntas.
+        <p>Não há perguntas.</p>
     <?php endif ?>
     
     <h3>Envie sua pergunta ao colaborador</h3>
@@ -240,6 +240,8 @@ $this->registerCssFile('@web/css/style.css');
         <?= Html::submitButton('Enviar Pergunta', ['class' => 'btn btn-primary']); ?>
 
         <?php ActiveForm::end(); ?>
+    <?php else: ?>
+        <p>Você precisa estar logado para enviar uma pergunta.</p>
     <?php endif; ?>
 </div>
 
