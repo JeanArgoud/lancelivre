@@ -151,7 +151,7 @@ NavBar::end();
                         'size' => 'xs',
                     ],
                 ]); ?>
-                <p class="card-price"><?= Html::encode($model->preco) ?></p>
+                <p class="card-price">R$ <?= Html::encode($model->preco) ?></p>
             </div>
         </div>
     <?php endforeach; ?>
